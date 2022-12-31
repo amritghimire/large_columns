@@ -7,19 +7,19 @@ stages:
       md5: 8048248e1f9eeb12732ea68ccb8d0375
       size: 1196
     - path: texts.csv
-      md5: a181e156773daf1620f139fd87d0b9eb
-      size: 1119
+      md5: 693685ddd16fe4893312b9c416b2c80c
+      size: 1656
     params:
       params.yaml:
         prepare.features: 100
         prepare.max_features: 2200
     outs:
     - path: texts-test.csv
-      md5: 012d63ebb79cbf475c14ba8f3c2078d5
-      size: 345
+      md5: be358047a2d6527ebbb81933a05f6e49
+      size: 522
     - path: texts-train.csv
-      md5: bc0884988797a71c9e7dee2d95fb448b
-      size: 774
+      md5: 428a063417f087def0463aa355a1d007
+      size: 1134
   featurize:
     cmd: python featurize.py texts-train.csv texts-train-feats.csv
     deps:
@@ -27,20 +27,20 @@ stages:
       md5: 96576292af3c0216ac664567f59e7ee5
       size: 1159
     - path: texts-train.csv
-      md5: bc0884988797a71c9e7dee2d95fb448b
-      size: 774
+      md5: 428a063417f087def0463aa355a1d007
+      size: 1134
     params:
       params.yaml:
         featurize.features: 4380
     outs:
     - path: texts-train-feats.csv
-      md5: c9ae45dadc5ff7bd939d9a52abd7b4dc
+      md5: ffe1eb5b33260a73db1e0a57b70d8e89
       size: 84
   train:
     cmd: python train.py texts-train-feats.csv model.json
     deps:
     - path: texts-train-feats.csv
-      md5: c9ae45dadc5ff7bd939d9a52abd7b4dc
+      md5: ffe1eb5b33260a73db1e0a57b70d8e89
       size: 84
     - path: train.py
       md5: b2c0b5288685fb0aaeb129fb05b468b4
@@ -63,7 +63,7 @@ stages:
         tagging.tags: 63
     outs:
     - path: model.json
-      md5: b49ec2ccad9cece46ae6615876f2f8bb
+      md5: 4abd9f0211b2849fd19307da8684e4a4
       size: 605
   evaluate:
     cmd: python evaluate.py model.json texts-test.csv
@@ -72,12 +72,12 @@ stages:
       md5: 4f84c4f6ce0cfe8399aa7140f6c56736
       size: 41705
     - path: model.json
-      md5: b49ec2ccad9cece46ae6615876f2f8bb
+      md5: 4abd9f0211b2849fd19307da8684e4a4
       size: 605
     - path: texts-test.csv
-      md5: 012d63ebb79cbf475c14ba8f3c2078d5
-      size: 345
+      md5: be358047a2d6527ebbb81933a05f6e49
+      size: 522
     outs:
     - path: metrics.json
-      md5: 6b47fd5b91cf56947f91260842dd458c
-      size: 291
+      md5: 3868d0edeb7a657cc99ea20d502370b0
+      size: 289
