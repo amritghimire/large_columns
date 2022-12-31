@@ -14,7 +14,7 @@ validation:
   max_depth: 16
 featurize:
   layers: 1
-  batch_size: 759
+  batch_size: 949
   sample: 0.75
   tags: 119
   estimators: 143
