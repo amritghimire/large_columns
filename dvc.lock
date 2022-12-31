@@ -12,7 +12,7 @@ stages:
     params:
       params.yaml:
         prepare.features: 118
-        prepare.max_features: 1983
+        prepare.max_features: 2388
     outs:
     - path: texts-test.csv
       md5: be358047a2d6527ebbb81933a05f6e49
@@ -24,8 +24,8 @@ stages:
     cmd: python featurize.py texts-train.csv texts-train-feats.csv
     deps:
     - path: featurize.py
-      md5: 96576292af3c0216ac664567f59e7ee5
-      size: 1159
+      md5: ef23c975112bd3c88315798ac6c28037
+      size: 1160
     - path: texts-train.csv
       md5: 428a063417f087def0463aa355a1d007
       size: 1134

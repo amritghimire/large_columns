@@ -13,7 +13,7 @@ model:
   folds: 9
 prepare:
   features: 118
-  max_features: 1983
+  max_features: 2388
 tagging:
   estimators: 222
   dense: 100
