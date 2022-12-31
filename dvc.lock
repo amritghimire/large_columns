@@ -11,7 +11,7 @@ stages:
       size: 1656
     params:
       params.yaml:
-        prepare.features: 100
+        prepare.features: 118
         prepare.max_features: 2200
     outs:
     - path: texts-test.csv

@@ -12,7 +12,7 @@ model:
   columns: 60
   folds: 9
 prepare:
-  features: 100
+  features: 118
   max_features: 2200
 tagging:
   estimators: 222
