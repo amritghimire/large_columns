@@ -12,7 +12,7 @@ stages:
     params:
       params.yaml:
         prepare.features: 118
-        prepare.max_features: 2200
+        prepare.max_features: 1983
     outs:
     - path: texts-test.csv
       md5: be358047a2d6527ebbb81933a05f6e49
