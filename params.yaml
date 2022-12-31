@@ -1,0 +1,22 @@
+settings:
+  batch_size: 368
+  min_split: 64
+  estimators: 119
+  min_features: 3650
+  random_state: 509000000
+  seed: 185976000
+  trees: 9
+model:
+  features: 4460
+  passes: 76
+  columns: 60
+  folds: 9
+prepare:
+  features: 100
+  max_features: 2200
+tagging:
+  estimators: 222
+  dense: 100
+  tags: 63
+featurize:
+  features: 4380

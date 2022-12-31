@@ -1,0 +1,83 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py texts.csv texts-train.csv texts-test.csv
+    deps:
+    - path: split.py
+      md5: 8048248e1f9eeb12732ea68ccb8d0375
+      size: 1196
+    - path: texts.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    params:
+      params.yaml:
+        prepare.features: 100
+        prepare.max_features: 2200
+    outs:
+    - path: texts-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: texts-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py texts-train.csv texts-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: e257264f2fd549e9b23fc2a2f8a3678a
+      size: 1159
+    - path: texts-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    params:
+      params.yaml:
+        featurize.features: 4380
+    outs:
+    - path: texts-train-feats.csv
+      md5: a398ff8ee746680984eceacd4727ccc6
+      size: 84
+  train:
+    cmd: python train.py texts-train-feats.csv model.json
+    deps:
+    - path: texts-train-feats.csv
+      md5: a398ff8ee746680984eceacd4727ccc6
+      size: 84
+    - path: train.py
+      md5: b2c0b5288685fb0aaeb129fb05b468b4
+      size: 1591
+    params:
+      params.yaml:
+        model.columns: 60
+        model.features: 4460
+        model.folds: 9
+        model.passes: 76
+        settings.batch_size: 368
+        settings.estimators: 119
+        settings.min_features: 3650
+        settings.min_split: 64
+        settings.random_state: 509000000
+        settings.seed: 185976000
+        settings.trees: 9
+        tagging.dense: 100
+        tagging.estimators: 222
+        tagging.tags: 63
+    outs:
+    - path: model.json
+      md5: e6c4171d71add7fc40e9953524d0cf51
+      size: 605
+  evaluate:
+    cmd: python evaluate.py model.json texts-test.csv
+    deps:
+    - path: evaluate.py
+      md5: 4f84c4f6ce0cfe8399aa7140f6c56736
+      size: 41705
+    - path: model.json
+      md5: e6c4171d71add7fc40e9953524d0cf51
+      size: 605
+    - path: texts-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: 08e384548c6178fa7dcce4d0b236a797
+      size: 293

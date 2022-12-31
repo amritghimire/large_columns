@@ -1,0 +1,52 @@
+stages:
+  split:
+    cmd: python split.py texts.csv texts-train.csv texts-test.csv
+    deps:
+    - split.py
+    - texts.csv
+    params:
+    - prepare.features
+    - prepare.max_features
+    outs:
+    - texts-test.csv
+    - texts-train.csv
+  featurize:
+    cmd: python featurize.py texts-train.csv texts-train-feats.csv
+    deps:
+    - featurize.py
+    - texts-train.csv
+    params:
+    - featurize.features
+    outs:
+    - texts-train-feats.csv
+  train:
+    cmd: python train.py texts-train-feats.csv model.json
+    deps:
+    - texts-train-feats.csv
+    - train.py
+    params:
+    - model.columns
+    - model.features
+    - model.folds
+    - model.passes
+    - settings.batch_size
+    - settings.estimators
+    - settings.min_features
+    - settings.min_split
+    - settings.random_state
+    - settings.seed
+    - settings.trees
+    - tagging.dense
+    - tagging.estimators
+    - tagging.tags
+    outs:
+    - model.json
+  evaluate:
+    cmd: python evaluate.py model.json texts-test.csv
+    deps:
+    - evaluate.py
+    - model.json
+    - texts-test.csv
+    metrics:
+    - metrics.json:
+        cache: false
