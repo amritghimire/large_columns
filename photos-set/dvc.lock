@@ -1,0 +1,88 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py photos.csv photos-train.csv photos-test.csv
+    deps:
+    - path: photos.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: 62ba19d98a2fac978f81d7ff7b4e0a70
+      size: 1192
+    params:
+      params.yaml:
+        prepare.min_split: 48
+        prepare.num_est: 100
+    outs:
+    - path: photos-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: photos-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py photos-train.csv photos-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 312f8afca69cd16bb06ece7246ce6e58
+      size: 1352
+    - path: photos-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    params:
+      params.yaml:
+        featurize.batch_size: 768
+        featurize.estimators: 132
+        featurize.layers: 2
+        featurize.sample: 0.75
+        featurize.tags: 112
+        featurize.trees: 42
+    outs:
+    - path: photos-train-feats.csv
+      md5: 217c76ece87c122e5948623ff0419d8a
+      size: 269
+  train:
+    cmd: python train.py photos-train-feats.csv model.json
+    deps:
+    - path: photos-train-feats.csv
+      md5: 217c76ece87c122e5948623ff0419d8a
+      size: 269
+    - path: train.py
+      md5: 37a328f43b10ebfaaf1c8b428f1420a1
+      size: 1598
+    params:
+      params.yaml:
+        model.columns: 21
+        model.estimators: 106
+        model.features: 1760
+        model.sample: 0.5
+        model.split: 0.1
+        train.features: 1430
+        train.layers: 2
+        train.num_est: 250
+        train.random_state: 901000000
+        train.weight_factor: 0.3
+        validation.batch_size: 848
+        validation.features: 1030
+        validation.max_depth: 16
+        validation.random_state: 512000000
+    outs:
+    - path: model.json
+      md5: ab31859b23da997d97c1c79acd8fcdfe
+      size: 802
+  evaluate:
+    cmd: python evaluate.py model.json photos-test.csv
+    deps:
+    - path: evaluate.py
+      md5: 6f3c2952f6c21dd3ac8c94a817536666
+      size: 42066
+    - path: model.json
+      md5: ab31859b23da997d97c1c79acd8fcdfe
+      size: 802
+    - path: photos-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: d30e02c80e121e46256e16e37b623925
+      size: 568

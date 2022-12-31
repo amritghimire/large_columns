@@ -1,0 +1,27 @@
+prepare:
+  num_est: 100
+  min_split: 48
+model:
+  estimators: 106
+  columns: 21
+  features: 1760
+  split: 0.1
+  sample: 0.5
+validation:
+  features: 1030
+  random_state: 512000000
+  batch_size: 848
+  max_depth: 16
+featurize:
+  layers: 2
+  batch_size: 768
+  sample: 0.75
+  tags: 112
+  estimators: 132
+  trees: 42
+train:
+  layers: 2
+  weight_factor: 0.3
+  features: 1430
+  random_state: 901000000
+  num_est: 250
