@@ -13,11 +13,11 @@ validation:
   batch_size: 848
   max_depth: 16
 featurize:
-  layers: 2
-  batch_size: 768
+  layers: 1
+  batch_size: 759
   sample: 0.75
-  tags: 112
-  estimators: 132
+  tags: 119
+  estimators: 143
   trees: 42
 train:
   layers: 2
