@@ -1,0 +1,30 @@
+train:
+  weight_factor: 0.1
+  min_features: 5000
+  epochs: 40
+  learning_rate: 0.15
+model:
+  num_est: 250
+  sample: 0.25
+  features: 4960
+  folds: 3
+  batch_size: 704
+preprocessing:
+  drop: 0.3
+  ngrams: 2
+  folds: 9
+  features: 660
+  split: 0.4
+  columns: 72
+  min_split: 80
+variables:
+  weight_factor: 0.2
+  sample: 0.75
+  max_features: 3000
+  threads: 20
+  features: 1500
+tagging:
+  drop: 0.2
+  weight_factor: 0.1
+  features: 1300
+  max_features: 550

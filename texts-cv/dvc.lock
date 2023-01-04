@@ -1,0 +1,87 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py texts.csv texts-train.csv texts-test.csv
+    deps:
+    - path: split.py
+      md5: b3a178d35c7926190fb8bdce5b7681d5
+      size: 713
+    - path: texts.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    outs:
+    - path: texts-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: texts-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py texts-train.csv texts-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 7b2a95111520e5fb198f97e83665bb11
+      size: 698
+    - path: texts-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    outs:
+    - path: texts-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+  train:
+    cmd: python train.py texts-train-feats.csv model.json
+    deps:
+    - path: texts-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+    - path: train.py
+      md5: 43e535e461687d781350050144dc3ab3
+      size: 2056
+    params:
+      params.yaml:
+        model.batch_size: 704
+        model.features: 4960
+        model.folds: 3
+        model.num_est: 250
+        model.sample: 0.25
+        preprocessing.columns: 72
+        preprocessing.drop: 0.3
+        preprocessing.features: 660
+        preprocessing.folds: 9
+        preprocessing.min_split: 80
+        preprocessing.ngrams: 2
+        preprocessing.split: 0.4
+        tagging.drop: 0.2
+        tagging.features: 1300
+        tagging.max_features: 550
+        tagging.weight_factor: 0.1
+        train.epochs: 40
+        train.learning_rate: 0.15
+        train.min_features: 5000
+        train.weight_factor: 0.1
+        variables.features: 1500
+        variables.max_features: 3000
+        variables.sample: 0.75
+        variables.threads: 20
+        variables.weight_factor: 0.2
+    outs:
+    - path: model.json
+      md5: 1f4312f606604ebc052fd54d839dd249
+      size: 1011
+  evaluate:
+    cmd: python evaluate.py model.json texts-test.csv
+    deps:
+    - path: evaluate.py
+      md5: ac9a6c2767266375142c84ee09fb60e1
+      size: 41966
+    - path: model.json
+      md5: 1f4312f606604ebc052fd54d839dd249
+      size: 1011
+    - path: texts-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: 2a45a76d8d3d2b2742bf69d1ffec3409
+      size: 452
