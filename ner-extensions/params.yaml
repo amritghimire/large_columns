@@ -1,0 +1,29 @@
+tagging:
+  weight_factor: 0.3
+  max_depth: 12
+  columns: 9
+  passes: 124
+train:
+  ngrams: 2
+  max_depth: 12
+  sample: 0.5
+  passes: 76
+  learning_rate: 0.04
+  max_features: 2700
+  features: 3560
+concurrent:
+  sample: 0.5
+  max_features: 1750
+  min_split: 80
+  threads: 30
+  num_est: 50
+  epochs: 45
+  ngrams: 8
+  drop: 0.4
+model:
+  epochs: 75
+  min_features: 4250
+settings:
+  min_split: 48
+  tags: 35
+  ngrams: 4

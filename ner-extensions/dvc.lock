@@ -1,0 +1,86 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py ner.csv ner-train.csv ner-test.csv
+    deps:
+    - path: ner.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: b3a178d35c7926190fb8bdce5b7681d5
+      size: 713
+    outs:
+    - path: ner-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: ner-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py ner-train.csv ner-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 7b2a95111520e5fb198f97e83665bb11
+      size: 698
+    - path: ner-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    outs:
+    - path: ner-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+  train:
+    cmd: python train.py ner-train-feats.csv model.json
+    deps:
+    - path: ner-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+    - path: train.py
+      md5: db82a9a0bd4454ee9b2939d9e87b6c3d
+      size: 1983
+    params:
+      params.yaml:
+        concurrent.drop: 0.4
+        concurrent.epochs: 45
+        concurrent.max_features: 1750
+        concurrent.min_split: 80
+        concurrent.ngrams: 8
+        concurrent.num_est: 50
+        concurrent.sample: 0.5
+        concurrent.threads: 30
+        model.epochs: 75
+        model.min_features: 4250
+        settings.min_split: 48
+        settings.ngrams: 4
+        settings.tags: 35
+        tagging.columns: 9
+        tagging.max_depth: 12
+        tagging.passes: 124
+        tagging.weight_factor: 0.3
+        train.features: 3560
+        train.learning_rate: 0.04
+        train.max_depth: 12
+        train.max_features: 2700
+        train.ngrams: 2
+        train.passes: 76
+        train.sample: 0.5
+    outs:
+    - path: model.json
+      md5: f7590e5f13a41ff380b184b996f4d0e2
+      size: 928
+  evaluate:
+    cmd: python evaluate.py model.json ner-test.csv
+    deps:
+    - path: evaluate.py
+      md5: 331324b8b26841b03de6677074a0b0d1
+      size: 41905
+    - path: model.json
+      md5: f7590e5f13a41ff380b184b996f4d0e2
+      size: 928
+    - path: ner-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: 2130948135100a3441989eed3ca231d7
+      size: 397

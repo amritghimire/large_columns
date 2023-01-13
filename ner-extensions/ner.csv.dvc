@@ -1,0 +1,4 @@
+outs:
+- md5: a181e156773daf1620f139fd87d0b9eb
+  size: 1119
+  path: ner.csv
