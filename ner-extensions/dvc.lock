@@ -36,7 +36,7 @@ stages:
       md5: 15032bccb83038ca69590b92dd4cc205
       size: 46
     - path: train.py
-      md5: db82a9a0bd4454ee9b2939d9e87b6c3d
+      md5: 10a4aaf398763a1e9b36814489c16f4d
       size: 1983
     params:
       params.yaml:
@@ -66,7 +66,7 @@ stages:
         train.sample: 0.5
     outs:
     - path: model.json
-      md5: f7590e5f13a41ff380b184b996f4d0e2
+      md5: 74f29ea2c3d7c9d37296a518691f9dd4
       size: 928
   evaluate:
     cmd: python evaluate.py model.json ner-test.csv
@@ -75,12 +75,12 @@ stages:
       md5: 331324b8b26841b03de6677074a0b0d1
       size: 41905
     - path: model.json
-      md5: f7590e5f13a41ff380b184b996f4d0e2
+      md5: 74f29ea2c3d7c9d37296a518691f9dd4
       size: 928
     - path: ner-test.csv
       md5: 012d63ebb79cbf475c14ba8f3c2078d5
       size: 345
     outs:
     - path: metrics.json
-      md5: 2130948135100a3441989eed3ca231d7
-      size: 397
+      md5: 0869478bacd10b7e19b4db9fd180bd62
+      size: 402
