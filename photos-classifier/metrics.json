@@ -1,0 +1,1 @@
+{"classifier": {"recall": 0.765901033964264, "size": 1675}, "estimate": {"loss": 0.3388111841864625}, "mark": {"errors": 94, "precision": 0.7945050768879685}, "reports": {"benchmark": 0.2516092137302166, "falsepos": 0.21048257764248968, "n_docs": 1501}, "results": {"n_docs": 1191, "precision": 0.750773607347429, "weighted_avg": 1.0042504059870572}}

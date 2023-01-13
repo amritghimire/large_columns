@@ -1,0 +1,74 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py photos.csv photos-train.csv photos-test.csv
+    deps:
+    - path: photos.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: b3a178d35c7926190fb8bdce5b7681d5
+      size: 713
+    outs:
+    - path: photos-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: photos-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py photos-train.csv photos-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 7b2a95111520e5fb198f97e83665bb11
+      size: 698
+    - path: photos-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    outs:
+    - path: photos-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+  train:
+    cmd: python train.py photos-train-feats.csv model.json
+    deps:
+    - path: photos-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+    - path: train.py
+      md5: f06592ecaa7e401b91448b7e2b706cbc
+      size: 1426
+    params:
+      params.yaml:
+        batch_size: 304
+        columns: 9
+        epochs: 10
+        estimators: 211
+        folds: 6
+        layers: 2
+        max_depth: 24
+        min_split: 48
+        random_state: 96000000
+        sample: 0.5
+        seed: 924250000
+        weight_factor: 0.1
+    outs:
+    - path: model.json
+      md5: 48c5d5f88e207c76f965c74436dbf5fd
+      size: 398
+  evaluate:
+    cmd: python evaluate.py model.json photos-test.csv
+    deps:
+    - path: evaluate.py
+      md5: d97125b9ca2d8c54b516abbe198e7d22
+      size: 41918
+    - path: model.json
+      md5: 48c5d5f88e207c76f965c74436dbf5fd
+      size: 398
+    - path: photos-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: 95318a1f9656e98cd2b122b806231db2
+      size: 350

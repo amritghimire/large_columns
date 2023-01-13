@@ -1,0 +1,12 @@
+columns: 9
+epochs: 10
+seed: 924250000
+weight_factor: 0.1
+random_state: 96000000
+estimators: 211
+sample: 0.5
+batch_size: 304
+layers: 2
+min_split: 48
+folds: 6
+max_depth: 24
