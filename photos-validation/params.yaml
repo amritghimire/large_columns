@@ -1,0 +1,32 @@
+prepare:
+  split: 0.2
+  ngrams: 2
+  tags: 35
+  dense: 500
+model:
+  learning_rate: 0.13
+  min_split: 32
+  num_est: 225
+  features: 2030
+  drop: 0.3
+preprocessing:
+  max_features: 5000
+  num_est: 100
+  tags: 126
+  weight_factor: 0.1
+  min_split: 80
+  epochs: 15
+  folds: 9
+  ngrams: 8
+  passes: 52
+variables:
+  threads: 19
+  max_features: 3300
+  epochs: 5
+  sample: 1.0
+validation:
+  batch_size: 112
+  drop: 0.2
+  max_depth: 16
+  passes: 94
+  sample: 0.75

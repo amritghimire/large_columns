@@ -1,0 +1,61 @@
+stages:
+  split:
+    cmd: python split.py photos.csv photos-train.csv photos-test.csv
+    deps:
+    - photos.csv
+    - split.py
+    params:
+    - prepare.dense
+    - prepare.ngrams
+    - prepare.split
+    - prepare.tags
+    outs:
+    - photos-test.csv
+    - photos-train.csv
+  featurize:
+    cmd: python featurize.py photos-train.csv photos-train-feats.csv
+    deps:
+    - featurize.py
+    - photos-train.csv
+    outs:
+    - photos-train-feats.csv
+  train:
+    cmd: python train.py photos-train-feats.csv model.json
+    deps:
+    - photos-train-feats.csv
+    - train.py
+    params:
+    - model.drop
+    - model.features
+    - model.learning_rate
+    - model.min_split
+    - model.num_est
+    - preprocessing.epochs
+    - preprocessing.folds
+    - preprocessing.max_features
+    - preprocessing.min_split
+    - preprocessing.ngrams
+    - preprocessing.num_est
+    - preprocessing.passes
+    - preprocessing.tags
+    - preprocessing.weight_factor
+    - validation.batch_size
+    - validation.drop
+    - validation.max_depth
+    - validation.passes
+    - validation.sample
+    - variables.epochs
+    - variables.max_features
+    - variables.sample
+    - variables.threads
+    outs:
+    - model.json
+  evaluate:
+    cmd: python evaluate.py model.json photos-test.csv
+    deps:
+    - evaluate.py
+    - model.json
+    - photos-test.csv
+    metrics:
+    - metrics.json:
+        cache: false
