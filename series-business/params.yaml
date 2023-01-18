@@ -1,0 +1,24 @@
+preprocessing:
+  ngrams: 8
+  layers: 4
+  max_features: 4650
+  split: 0.4
+  epochs: 45
+settings:
+  min_split: 64
+  folds: 3
+  columns: 42
+  num_est: 50
+  trees: 21
+  drop: 0.1
+  layers: 6
+tagging:
+  min_features: 2700
+validation:
+  folds: 12
+  learning_rate: 0.07
+  trees: 30
+  max_features: 750
+  seed: 875446000
+train:
+  tags: 112

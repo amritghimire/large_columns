@@ -1,0 +1,52 @@
+stages:
+  split:
+    cmd: python split.py series.csv series-train.csv series-test.csv
+    deps:
+    - series.csv
+    - split.py
+    outs:
+    - series-test.csv
+    - series-train.csv
+  featurize:
+    cmd: python featurize.py series-train.csv series-train-feats.csv
+    deps:
+    - featurize.py
+    - series-train.csv
+    outs:
+    - series-train-feats.csv
+  train:
+    cmd: python train.py series-train-feats.csv model.json
+    deps:
+    - series-train-feats.csv
+    - train.py
+    params:
+    - preprocessing.epochs
+    - preprocessing.layers
+    - preprocessing.max_features
+    - preprocessing.ngrams
+    - preprocessing.split
+    - settings.columns
+    - settings.drop
+    - settings.folds
+    - settings.layers
+    - settings.min_split
+    - settings.num_est
+    - settings.trees
+    - tagging.min_features
+    - train.tags
+    - validation.folds
+    - validation.learning_rate
+    - validation.max_features
+    - validation.seed
+    - validation.trees
+    outs:
+    - model.json
+  evaluate:
+    cmd: python evaluate.py model.json series-test.csv
+    deps:
+    - evaluate.py
+    - model.json
+    - series-test.csv
+    metrics:
+    - metrics.json:
+        cache: false

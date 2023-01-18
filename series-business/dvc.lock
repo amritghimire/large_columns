@@ -1,0 +1,81 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py series.csv series-train.csv series-test.csv
+    deps:
+    - path: series.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: b3a178d35c7926190fb8bdce5b7681d5
+      size: 713
+    outs:
+    - path: series-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: series-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py series-train.csv series-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 7b2a95111520e5fb198f97e83665bb11
+      size: 698
+    - path: series-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    outs:
+    - path: series-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+  train:
+    cmd: python train.py series-train-feats.csv model.json
+    deps:
+    - path: series-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+    - path: train.py
+      md5: 0146eb051a162e4b5aa29c70c4eb4819
+      size: 1818
+    params:
+      params.yaml:
+        preprocessing.epochs: 45
+        preprocessing.layers: 4
+        preprocessing.max_features: 4650
+        preprocessing.ngrams: 8
+        preprocessing.split: 0.4
+        settings.columns: 42
+        settings.drop: 0.1
+        settings.folds: 3
+        settings.layers: 6
+        settings.min_split: 64
+        settings.num_est: 50
+        settings.trees: 21
+        tagging.min_features: 2700
+        train.tags: 112
+        validation.folds: 12
+        validation.learning_rate: 0.07
+        validation.max_features: 750
+        validation.seed: 875446000
+        validation.trees: 30
+    outs:
+    - path: model.json
+      md5: 72efb10a124e82b10510587c1941ba1d
+      size: 775
+  evaluate:
+    cmd: python evaluate.py model.json series-test.csv
+    deps:
+    - path: evaluate.py
+      md5: 9de0fbf0feceb3d02469d2b46218fa57
+      size: 41900
+    - path: model.json
+      md5: 72efb10a124e82b10510587c1941ba1d
+      size: 775
+    - path: series-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: 196b8ae6373d23ee23d4992c9f71b5e9
+      size: 411
