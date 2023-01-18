@@ -1,0 +1,89 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py photos.csv photos-train.csv photos-test.csv
+    deps:
+    - path: photos.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: b3a178d35c7926190fb8bdce5b7681d5
+      size: 713
+    outs:
+    - path: photos-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: photos-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py photos-train.csv photos-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 7b2a95111520e5fb198f97e83665bb11
+      size: 698
+    - path: photos-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    outs:
+    - path: photos-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+  train:
+    cmd: python train.py photos-train-feats.csv model.json
+    deps:
+    - path: photos-train-feats.csv
+      md5: 15032bccb83038ca69590b92dd4cc205
+      size: 46
+    - path: train.py
+      md5: 53f035be2c8a56e470c826a5a3efc35d
+      size: 2080
+    params:
+      params.yaml:
+        concurrent.epochs: 35
+        concurrent.folds: 3
+        concurrent.split: 0.2
+        concurrent.tags: 91
+        settings.columns: 39
+        settings.features: 3670
+        settings.layers: 2
+        settings.trees: 18
+        tagging.learning_rate: 0.09
+        tagging.passes: 54
+        tagging.sample: 0.25
+        tagging.seed: 339991000
+        tagging.threads: 1
+        train.batch_size: 16
+        train.folds: 12
+        train.learning_rate: 0.02
+        train.ngrams: 2
+        train.passes: 16
+        train.sample: 0.75
+        train.threads: 28
+        train.weight_factor: 0.2
+        variables.drop: 0.1
+        variables.features: 2480
+        variables.min_features: 4050
+        variables.min_split: 80
+        variables.passes: 36
+        variables.sample: 0.5
+    outs:
+    - path: model.json
+      md5: 074b743152def689acb106e2f1e38563
+      size: 1029
+  evaluate:
+    cmd: python evaluate.py model.json photos-test.csv
+    deps:
+    - path: evaluate.py
+      md5: b39270e1628303783f4a6d2860500954
+      size: 42014
+    - path: model.json
+      md5: 074b743152def689acb106e2f1e38563
+      size: 1029
+    - path: photos-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: db3ff0473f9aa3e0c7ab0d411af81a5e
+      size: 452

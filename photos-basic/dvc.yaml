@@ -1,0 +1,60 @@
+stages:
+  split:
+    cmd: python split.py photos.csv photos-train.csv photos-test.csv
+    deps:
+    - photos.csv
+    - split.py
+    outs:
+    - photos-test.csv
+    - photos-train.csv
+  featurize:
+    cmd: python featurize.py photos-train.csv photos-train-feats.csv
+    deps:
+    - featurize.py
+    - photos-train.csv
+    outs:
+    - photos-train-feats.csv
+  train:
+    cmd: python train.py photos-train-feats.csv model.json
+    deps:
+    - photos-train-feats.csv
+    - train.py
+    params:
+    - concurrent.epochs
+    - concurrent.folds
+    - concurrent.split
+    - concurrent.tags
+    - settings.columns
+    - settings.features
+    - settings.layers
+    - settings.trees
+    - tagging.learning_rate
+    - tagging.passes
+    - tagging.sample
+    - tagging.seed
+    - tagging.threads
+    - train.batch_size
+    - train.folds
+    - train.learning_rate
+    - train.ngrams
+    - train.passes
+    - train.sample
+    - train.threads
+    - train.weight_factor
+    - variables.drop
+    - variables.features
+    - variables.min_features
+    - variables.min_split
+    - variables.passes
+    - variables.sample
+    outs:
+    - model.json
+  evaluate:
+    cmd: python evaluate.py model.json photos-test.csv
+    deps:
+    - evaluate.py
+    - model.json
+    - photos-test.csv
+    metrics:
+    - metrics.json:
+        cache: false

@@ -1,0 +1,32 @@
+concurrent:
+  folds: 3
+  tags: 91
+  epochs: 35
+  split: 0.2
+tagging:
+  sample: 0.25
+  seed: 339991000
+  passes: 54
+  threads: 1
+  learning_rate: 0.09
+train:
+  learning_rate: 0.02
+  threads: 28
+  weight_factor: 0.2
+  sample: 0.75
+  ngrams: 2
+  batch_size: 16
+  passes: 16
+  folds: 12
+variables:
+  min_features: 4050
+  min_split: 80
+  drop: 0.1
+  sample: 0.5
+  passes: 36
+  features: 2480
+settings:
+  layers: 2
+  features: 3670
+  columns: 39
+  trees: 18
