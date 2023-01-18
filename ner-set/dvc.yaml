@@ -1,0 +1,64 @@
+stages:
+  split:
+    cmd: python split.py ner.csv ner-train.csv ner-test.csv
+    deps:
+    - ner.csv
+    - split.py
+    params:
+    - prepare.features
+    - prepare.folds
+    - prepare.random_state
+    - prepare.seed
+    outs:
+    - ner-test.csv
+    - ner-train.csv
+  featurize:
+    cmd: python featurize.py ner-train.csv ner-train-feats.csv
+    deps:
+    - featurize.py
+    - ner-train.csv
+    params:
+    - featurize.dense
+    - featurize.learning_rate
+    - featurize.max_depth
+    - featurize.min_split
+    - featurize.ngrams
+    outs:
+    - ner-train-feats.csv
+  train:
+    cmd: python train.py ner-train-feats.csv model.json
+    deps:
+    - ner-train-feats.csv
+    - train.py
+    params:
+    - concurrent.columns
+    - concurrent.layers
+    - concurrent.ngrams
+    - concurrent.num_est
+    - concurrent.random_state
+    - model.batch_size
+    - model.columns
+    - model.drop
+    - model.folds
+    - model.max_depth
+    - model.ngrams
+    - model.threads
+    - model.trees
+    - preprocessing.features
+    - preprocessing.learning_rate
+    - preprocessing.max_features
+    - preprocessing.min_features
+    - preprocessing.passes
+    - preprocessing.random_state
+    - preprocessing.threads
+    outs:
+    - model.json
+  evaluate:
+    cmd: python evaluate.py model.json ner-test.csv
+    deps:
+    - evaluate.py
+    - model.json
+    - ner-test.csv
+    metrics:
+    - metrics.json:
+        cache: false

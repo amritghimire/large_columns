@@ -1,0 +1,95 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py ner.csv ner-train.csv ner-test.csv
+    deps:
+    - path: ner.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: 6b5b0d64abd7b5c741bac54ee1058d78
+      size: 1283
+    params:
+      params.yaml:
+        prepare.features: 1400
+        prepare.folds: 9
+        prepare.random_state: 999000000
+        prepare.seed: 862159000
+    outs:
+    - path: ner-test.csv
+      md5: 65134832adc172d81fa367b7cfc76582
+      size: 254
+    - path: ner-train.csv
+      md5: 043e09474fdbe6bd878c83b4f3935306
+      size: 865
+  featurize:
+    cmd: python featurize.py ner-train.csv ner-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 2a446569cb6209e31a883608d9bd74ff
+      size: 1321
+    - path: ner-train.csv
+      md5: 043e09474fdbe6bd878c83b4f3935306
+      size: 865
+    params:
+      params.yaml:
+        featurize.dense: 100
+        featurize.learning_rate: 0.06
+        featurize.max_depth: 4
+        featurize.min_split: 64
+        featurize.ngrams: 6
+    outs:
+    - path: ner-train-feats.csv
+      md5: ca2254c038c02e2ea4bcdbd5528b7727
+      size: 237
+  train:
+    cmd: python train.py ner-train-feats.csv model.json
+    deps:
+    - path: ner-train-feats.csv
+      md5: ca2254c038c02e2ea4bcdbd5528b7727
+      size: 237
+    - path: train.py
+      md5: 7b2e6ace7a8d0b2786305cdb0ef57808
+      size: 1867
+    params:
+      params.yaml:
+        concurrent.columns: 12
+        concurrent.layers: 6
+        concurrent.ngrams: 4
+        concurrent.num_est: 150
+        concurrent.random_state: 150000000
+        model.batch_size: 16
+        model.columns: 15
+        model.drop: 0.3
+        model.folds: 9
+        model.max_depth: 16
+        model.ngrams: 4
+        model.threads: 29
+        model.trees: 12
+        preprocessing.features: 3700
+        preprocessing.learning_rate: 0.1
+        preprocessing.max_features: 3550
+        preprocessing.min_features: 3250
+        preprocessing.passes: 54
+        preprocessing.random_state: 274000000
+        preprocessing.threads: 15
+    outs:
+    - path: model.json
+      md5: 3c66eb4f9ab06c649285b3f178554877
+      size: 1021
+  evaluate:
+    cmd: python evaluate.py model.json ner-test.csv
+    deps:
+    - path: evaluate.py
+      md5: 8007cb86222cfeb52bdf4adf4a4bd749
+      size: 41958
+    - path: model.json
+      md5: 3c66eb4f9ab06c649285b3f178554877
+      size: 1021
+    - path: ner-test.csv
+      md5: 65134832adc172d81fa367b7cfc76582
+      size: 254
+    outs:
+    - path: metrics.json
+      md5: 155c9431aa58b05a25e0b484d2b519bb
+      size: 501
