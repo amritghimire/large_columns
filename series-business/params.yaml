@@ -5,7 +5,7 @@ preprocessing:
   split: 0.38627
   epochs: 45
 settings:
-  min_split: 48
+  min_split: 50
   folds: 3
   columns: 42
   num_est: 50
