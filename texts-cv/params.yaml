@@ -5,7 +5,7 @@ train:
   learning_rate: 0.15
 model:
   num_est: 250
-  sample: 0.25
+  sample: 0.2163
   features: 4960
   folds: 3
   batch_size: 704
@@ -18,8 +18,8 @@ preprocessing:
   columns: 72
   min_split: 80
 variables:
-  weight_factor: 0.2
-  sample: 0.75
+  weight_factor: 0.24001
+  sample: 0.80168
   max_features: 3000
   threads: 20
   features: 1500
