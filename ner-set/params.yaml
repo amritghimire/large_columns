@@ -22,9 +22,9 @@ preprocessing:
   max_features: 3550
 featurize:
   ngrams: 6
-  min_split: 64
-  dense: 75
-  max_depth: 4
+  min_split: 52
+  dense: 85
+  max_depth: 3
   learning_rate: 0.06
 concurrent:
   layers: 6
