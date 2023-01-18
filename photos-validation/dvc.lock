@@ -47,10 +47,10 @@ stages:
     params:
       params.yaml:
         model.drop: 0.3
-        model.features: 2030
+        model.features: 2010
         model.learning_rate: 0.13
-        model.min_split: 32
-        model.num_est: 225
+        model.min_split: 24
+        model.num_est: 201
         preprocessing.epochs: 15
         preprocessing.folds: 9
         preprocessing.max_features: 5000
@@ -71,7 +71,7 @@ stages:
         variables.threads: 19
     outs:
     - path: model.json
-      md5: 911906e09745f8d48d8b53ae590d1bc2
+      md5: 36c71a3a46368823ecd79ba6c6ce01a7
       size: 948
   evaluate:
     cmd: python evaluate.py model.json photos-test.csv
@@ -80,12 +80,12 @@ stages:
       md5: 0fc9e02fea51448bf4f726dadc6f819a
       size: 41993
     - path: model.json
-      md5: 911906e09745f8d48d8b53ae590d1bc2
+      md5: 36c71a3a46368823ecd79ba6c6ce01a7
       size: 948
     - path: photos-test.csv
       md5: 53cb3c3ecb0b240136683b4a3e1a07dc
       size: 755
     outs:
     - path: metrics.json
-      md5: f504594aa54a5ce8d70dd44677641871
-      size: 486
+      md5: 53045da287ed1d01bb6bfc12b776d00c
+      size: 483

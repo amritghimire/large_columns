@@ -5,9 +5,9 @@ prepare:
   dense: 500
 model:
   learning_rate: 0.13
-  min_split: 32
-  num_est: 225
-  features: 2030
+  min_split: 24
+  num_est: 201
+  features: 2010
   drop: 0.3
 preprocessing:
   max_features: 5000
