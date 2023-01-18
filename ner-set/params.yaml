@@ -23,8 +23,8 @@ preprocessing:
 featurize:
   ngrams: 6
   min_split: 64
-  dense: 100
-  max_depth: 3
+  dense: 75
+  max_depth: 4
   learning_rate: 0.06
 concurrent:
   layers: 6
