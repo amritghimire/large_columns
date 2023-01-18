@@ -44,25 +44,25 @@ stages:
         preprocessing.layers: 4
         preprocessing.max_features: 4650
         preprocessing.ngrams: 8
-        preprocessing.split: 0.4
+        preprocessing.split: 0.38627
         settings.columns: 42
         settings.drop: 0.1
         settings.folds: 3
         settings.layers: 6
-        settings.min_split: 64
+        settings.min_split: 48
         settings.num_est: 50
         settings.trees: 21
         tagging.min_features: 2700
         train.tags: 112
         validation.folds: 12
-        validation.learning_rate: 0.07
+        validation.learning_rate: 0.07476
         validation.max_features: 750
         validation.seed: 875446000
         validation.trees: 30
     outs:
     - path: model.json
-      md5: 23ef4f23464a4985931d676817637c08
-      size: 775
+      md5: b9abb5959f0e0ad5444d320367f2fdfe
+      size: 782
   evaluate:
     cmd: python evaluate.py model.json series-test.csv
     deps:
@@ -70,12 +70,12 @@ stages:
       md5: 9de0fbf0feceb3d02469d2b46218fa57
       size: 41900
     - path: model.json
-      md5: 23ef4f23464a4985931d676817637c08
-      size: 775
+      md5: b9abb5959f0e0ad5444d320367f2fdfe
+      size: 782
     - path: series-test.csv
       md5: 012d63ebb79cbf475c14ba8f3c2078d5
       size: 345
     outs:
     - path: metrics.json
-      md5: a58d170c00d9c1c6a19276ae90b15413
+      md5: 12895247e65511cfb20a98406082d6e7
       size: 412
