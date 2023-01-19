@@ -10,19 +10,19 @@ model:
   folds: 3
   batch_size: 704
 preprocessing:
-  drop: 0.3
+  drop: 0.34672
   ngrams: 2
   folds: 9
   features: 660
   split: 0.4
-  columns: 72
+  columns: 81
   min_split: 80
 variables:
   weight_factor: 0.24001
   sample: 0.80168
-  max_features: 3000
+  max_features: 3333
   threads: 20
-  features: 1500
+  features: 1272
 tagging:
   drop: 0.2
   weight_factor: 0.1
