@@ -1,0 +1,1 @@
+{"classifier": {"distinct": 38}, "estimate": {"fullscore": 0.88171062184225}, "model": {"accuracy": 0.8909067245995173, "falsepos": 0.08765686768302805}, "reports": {"accuracy": 0.4556206481837679, "meanscore": 0.21923630093074453}, "train": {"f1-score": 0.4976008435955482, "weighted_avg": -0.2745253262913636}}

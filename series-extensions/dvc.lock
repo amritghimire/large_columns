@@ -1,0 +1,97 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python split.py series.csv series-train.csv series-test.csv
+    deps:
+    - path: series.csv
+      md5: a181e156773daf1620f139fd87d0b9eb
+      size: 1119
+    - path: split.py
+      md5: b3a178d35c7926190fb8bdce5b7681d5
+      size: 713
+    outs:
+    - path: series-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    - path: series-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+  featurize:
+    cmd: python featurize.py series-train.csv series-train-feats.csv
+    deps:
+    - path: featurize.py
+      md5: 0996aecab04c37269ad9daf50fafe417
+      size: 1518
+    - path: series-train.csv
+      md5: bc0884988797a71c9e7dee2d95fb448b
+      size: 774
+    params:
+      params.yaml:
+        featurize.batch_size: 624
+        featurize.columns: 54
+        featurize.dense: 600
+        featurize.min_split: 48
+        featurize.ngrams: 8
+        featurize.passes: 44
+        featurize.random_state: 503000000
+        featurize.seed: 238248000
+        featurize.threads: 21
+        featurize.weight_factor: 0.1
+    outs:
+    - path: series-train-feats.csv
+      md5: af729269e8dc2012b0bd7e154dd30618
+      size: 439
+  train:
+    cmd: python train.py series-train-feats.csv model.json
+    deps:
+    - path: series-train-feats.csv
+      md5: af729269e8dc2012b0bd7e154dd30618
+      size: 439
+    - path: train.py
+      md5: 213bb82f3f95f7a7230ee8a3e757cb2d
+      size: 1954
+    params:
+      params.yaml:
+        model.batch_size: 992
+        model.columns: 57
+        model.epochs: 45
+        model.max_features: 600
+        model.min_split: 80
+        model.random_state: 411000000
+        model.sample: 1.0
+        model.weight_factor: 0.3
+        settings.folds: 12
+        settings.num_est: 200
+        tagging.folds: 9
+        tagging.min_split: 32
+        tagging.seed: 442150000
+        tagging.threads: 6
+        validation.batch_size: 736
+        validation.layers: 2
+        validation.max_features: 100
+        validation.min_split: 80
+        validation.ngrams: 2
+        validation.num_est: 100
+        validation.sample: 0.75
+        validation.split: 0.2
+        validation.weight_factor: 0.1
+    outs:
+    - path: model.json
+      md5: 9800e605c1c8ce43e59b5c983c48d439
+      size: 1307
+  evaluate:
+    cmd: python evaluate.py model.json series-test.csv
+    deps:
+    - path: evaluate.py
+      md5: dd0c5624c0e2356265d3258ea3153641
+      size: 41743
+    - path: model.json
+      md5: 9800e605c1c8ce43e59b5c983c48d439
+      size: 1307
+    - path: series-test.csv
+      md5: 012d63ebb79cbf475c14ba8f3c2078d5
+      size: 345
+    outs:
+    - path: metrics.json
+      md5: d65c6b852e6866a3a2c65ba9dfe7ca23
+      size: 312

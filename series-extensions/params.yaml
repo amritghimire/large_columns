@@ -1,0 +1,38 @@
+featurize:
+  random_state: 503000000
+  ngrams: 8
+  min_split: 48
+  columns: 54
+  weight_factor: 0.1
+  passes: 44
+  dense: 600
+  threads: 21
+  seed: 238248000
+  batch_size: 624
+model:
+  max_features: 600
+  sample: 1.0
+  weight_factor: 0.3
+  random_state: 411000000
+  columns: 57
+  min_split: 80
+  batch_size: 992
+  epochs: 45
+settings:
+  folds: 12
+  num_est: 200
+tagging:
+  min_split: 32
+  threads: 6
+  folds: 9
+  seed: 442150000
+validation:
+  sample: 0.75
+  weight_factor: 0.1
+  split: 0.2
+  min_split: 80
+  layers: 2
+  num_est: 100
+  max_features: 100
+  ngrams: 2
+  batch_size: 736
