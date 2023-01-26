@@ -17,19 +17,19 @@ model:
   columns: 57
   min_split: 80
   batch_size: 992
-  epochs: 45
+  epochs: 50
 settings:
   folds: 12
   num_est: 200
 tagging:
   min_split: 32
   threads: 6
-  folds: 9
+  folds: 8
   seed: 442150000
 validation:
-  sample: 0.75
+  sample: 0.597
   weight_factor: 0.1
-  split: 0.2
+  split: 0.21774
   min_split: 80
   layers: 2
   num_est: 100
