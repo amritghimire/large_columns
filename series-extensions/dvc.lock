@@ -4,18 +4,18 @@ stages:
     cmd: python split.py series.csv series-train.csv series-test.csv
     deps:
     - path: series.csv
-      md5: a181e156773daf1620f139fd87d0b9eb
-      size: 1119
+      md5: 89e9afb028a2f682c8a9ab7de6096d11
+      size: 1566
     - path: split.py
       md5: be5450939904091d9416b764dc35eb08
       size: 714
     outs:
     - path: series-test.csv
-      md5: 012d63ebb79cbf475c14ba8f3c2078d5
-      size: 345
+      md5: 405495810e743b30a51dddc736569a2f
+      size: 484
     - path: series-train.csv
-      md5: bc0884988797a71c9e7dee2d95fb448b
-      size: 774
+      md5: 2618e3976c5f442b3fcb3b9ee4649c0f
+      size: 1082
   featurize:
     cmd: python featurize.py series-train.csv series-train-feats.csv
     deps:
@@ -23,8 +23,8 @@ stages:
       md5: 0996aecab04c37269ad9daf50fafe417
       size: 1518
     - path: series-train.csv
-      md5: bc0884988797a71c9e7dee2d95fb448b
-      size: 774
+      md5: 2618e3976c5f442b3fcb3b9ee4649c0f
+      size: 1082
     params:
       params.yaml:
         featurize.batch_size: 624
@@ -39,14 +39,14 @@ stages:
         featurize.weight_factor: 0.1
     outs:
     - path: series-train-feats.csv
-      md5: af729269e8dc2012b0bd7e154dd30618
-      size: 439
+      md5: 571b47c7d673661bed824e83f0fcfc50
+      size: 440
   train:
     cmd: python train.py series-train-feats.csv model.json
     deps:
     - path: series-train-feats.csv
-      md5: af729269e8dc2012b0bd7e154dd30618
-      size: 439
+      md5: 571b47c7d673661bed824e83f0fcfc50
+      size: 440
     - path: train.py
       md5: e649c3fbd244dd61cf9e192362d98ebd
       size: 1954
@@ -77,8 +77,8 @@ stages:
         validation.weight_factor: 0.1
     outs:
     - path: model.json
-      md5: 1f025277648cc4b7f9caacc072445d82
-      size: 1312
+      md5: c2ab27176705b9bb2a4a3bd71e427bc1
+      size: 1313
   evaluate:
     cmd: python evaluate.py model.json series-test.csv
     deps:
@@ -86,12 +86,12 @@ stages:
       md5: dd0c5624c0e2356265d3258ea3153641
       size: 41743
     - path: model.json
-      md5: 1f025277648cc4b7f9caacc072445d82
-      size: 1312
+      md5: c2ab27176705b9bb2a4a3bd71e427bc1
+      size: 1313
     - path: series-test.csv
-      md5: 012d63ebb79cbf475c14ba8f3c2078d5
-      size: 345
+      md5: 405495810e743b30a51dddc736569a2f
+      size: 484
     outs:
     - path: metrics.json
-      md5: 3c6c2e50dc53c20d674813d5e8c06806
-      size: 312
+      md5: 217e469c06bcc5202e7ba91fd97c833c
+      size: 315
