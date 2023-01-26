@@ -22,7 +22,7 @@ settings:
   folds: 12
   num_est: 200
 tagging:
-  min_split: 32
+  min_split: 30
   threads: 6
   folds: 8
   seed: 442150000

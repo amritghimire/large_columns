@@ -63,7 +63,7 @@ stages:
         settings.folds: 12
         settings.num_est: 200
         tagging.folds: 8
-        tagging.min_split: 32
+        tagging.min_split: 30
         tagging.seed: 442150000
         tagging.threads: 6
         validation.batch_size: 736
@@ -77,7 +77,7 @@ stages:
         validation.weight_factor: 0.1
     outs:
     - path: model.json
-      md5: bb17ef18bcb9c2e34355519b23a63074
+      md5: 1f025277648cc4b7f9caacc072445d82
       size: 1312
   evaluate:
     cmd: python evaluate.py model.json series-test.csv
@@ -86,12 +86,12 @@ stages:
       md5: dd0c5624c0e2356265d3258ea3153641
       size: 41743
     - path: model.json
-      md5: bb17ef18bcb9c2e34355519b23a63074
+      md5: 1f025277648cc4b7f9caacc072445d82
       size: 1312
     - path: series-test.csv
       md5: 012d63ebb79cbf475c14ba8f3c2078d5
       size: 345
     outs:
     - path: metrics.json
-      md5: 9b9034f310cb33db900eec1fa9a82ecb
-      size: 314
+      md5: 3c6c2e50dc53c20d674813d5e8c06806
+      size: 312
