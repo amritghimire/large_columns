@@ -2,7 +2,7 @@
 import os, sys, json, math
 import random
 
-VERSION = 2
+VERSION = 3
 
 
 import yaml
