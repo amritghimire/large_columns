@@ -24,8 +24,8 @@ settings:
 tagging:
   min_split: 30
   threads: 6
-  folds: 8
-  seed: 442150000
+  folds: 9
+  seed: 370318620
 validation:
   sample: 0.597
   weight_factor: 0.1
