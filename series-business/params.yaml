@@ -5,10 +5,10 @@ preprocessing:
   split: 0.38627
   epochs: 45
 settings:
-  min_split: 50
+  min_split: 71
   folds: 3
   columns: 41
-  num_est: 55
+  num_est: 52
   trees: 21
   drop: 0.1
   layers: 6

@@ -20,8 +20,8 @@ stages:
     cmd: python featurize.py series-train.csv series-train-feats.csv
     deps:
     - path: featurize.py
-      md5: 402f79055844251397e2ac532994c7e5
-      size: 698
+      md5: 805bfcb870666a6ea36b82fd906910b5
+      size: 699
     - path: series-train.csv
       md5: bc0884988797a71c9e7dee2d95fb448b
       size: 774
@@ -49,8 +49,8 @@ stages:
         settings.drop: 0.1
         settings.folds: 3
         settings.layers: 6
-        settings.min_split: 50
-        settings.num_est: 55
+        settings.min_split: 71
+        settings.num_est: 52
         settings.trees: 21
         tagging.min_features: 2700
         train.tags: 112
@@ -61,7 +61,7 @@ stages:
         validation.trees: 30
     outs:
     - path: model.json
-      md5: 5a4874435b2556470835a97e69657a39
+      md5: 31b8048415437e4e989ca2ac1d637080
       size: 783
   evaluate:
     cmd: python evaluate.py model.json series-test.csv
@@ -70,12 +70,12 @@ stages:
       md5: 9de0fbf0feceb3d02469d2b46218fa57
       size: 41900
     - path: model.json
-      md5: 5a4874435b2556470835a97e69657a39
+      md5: 31b8048415437e4e989ca2ac1d637080
       size: 783
     - path: series-test.csv
       md5: 012d63ebb79cbf475c14ba8f3c2078d5
       size: 345
     outs:
     - path: metrics.json
-      md5: 20f974ed9a890ebc1627d4b4748cac99
-      size: 413
+      md5: 1de201585460f0b7f23fc540dc2e3724
+      size: 415
