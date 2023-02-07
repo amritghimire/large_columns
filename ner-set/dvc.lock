@@ -33,21 +33,21 @@ stages:
       size: 865
     params:
       params.yaml:
-        featurize.dense: 85
-        featurize.learning_rate: 0.07398
-        featurize.max_depth: 3
-        featurize.min_split: 60
-        featurize.ngrams: 5
+        featurize.dense: 121
+        featurize.learning_rate: 0.05646
+        featurize.max_depth: 4
+        featurize.min_split: 70
+        featurize.ngrams: 4
     outs:
     - path: ner-train-feats.csv
-      md5: 4209046ed8cfcc01812f332ee6b7c638
-      size: 239
+      md5: 876487800c89f4f06576e199837f0194
+      size: 240
   train:
     cmd: python train.py ner-train-feats.csv model.json
     deps:
     - path: ner-train-feats.csv
-      md5: 4209046ed8cfcc01812f332ee6b7c638
-      size: 239
+      md5: 876487800c89f4f06576e199837f0194
+      size: 240
     - path: train.py
       md5: 7b2e6ace7a8d0b2786305cdb0ef57808
       size: 1867
@@ -75,21 +75,21 @@ stages:
         preprocessing.threads: 15
     outs:
     - path: model.json
-      md5: 8afd33c02d20dd4ab48a97339c22c04e
-      size: 1023
+      md5: 538ce0a7a2a5a6ddf4f2ed01a7ced9ed
+      size: 1024
   evaluate:
     cmd: python evaluate.py model.json ner-test.csv
     deps:
     - path: evaluate.py
-      md5: 8007cb86222cfeb52bdf4adf4a4bd749
-      size: 41958
+      md5: c21b5cf442dd66a3b911c9e05a285c19
+      size: 41959
     - path: model.json
-      md5: 8afd33c02d20dd4ab48a97339c22c04e
-      size: 1023
+      md5: 538ce0a7a2a5a6ddf4f2ed01a7ced9ed
+      size: 1024
     - path: ner-test.csv
       md5: 65134832adc172d81fa367b7cfc76582
       size: 254
     outs:
     - path: metrics.json
-      md5: 44cd3b6e2b9b2189e743baa4120d7058
-      size: 500
+      md5: 90da2b736b38e25b053e0e5ca83f6a66
+      size: 497
