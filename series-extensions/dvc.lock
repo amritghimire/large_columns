@@ -4,27 +4,27 @@ stages:
     cmd: python split.py series.csv series-train.csv series-test.csv
     deps:
     - path: series.csv
-      md5: 89e9afb028a2f682c8a9ab7de6096d11
-      size: 1566
+      md5: 5aee6493cf77b44a34f7a7ed807ea349
+      size: 1987
     - path: split.py
       md5: be5450939904091d9416b764dc35eb08
       size: 714
     outs:
     - path: series-test.csv
-      md5: 405495810e743b30a51dddc736569a2f
-      size: 484
+      md5: 1c510825bde3602846605ebc5e21df00
+      size: 583
     - path: series-train.csv
-      md5: 2618e3976c5f442b3fcb3b9ee4649c0f
-      size: 1082
+      md5: f7b239bbda918665219cda60b1b4be26
+      size: 1404
   featurize:
     cmd: python featurize.py series-train.csv series-train-feats.csv
     deps:
     - path: featurize.py
-      md5: 0996aecab04c37269ad9daf50fafe417
-      size: 1518
+      md5: 9ec7f2e86db11aac55cfd3fa899c70f6
+      size: 1519
     - path: series-train.csv
-      md5: 2618e3976c5f442b3fcb3b9ee4649c0f
-      size: 1082
+      md5: f7b239bbda918665219cda60b1b4be26
+      size: 1404
     params:
       params.yaml:
         featurize.batch_size: 624
@@ -39,14 +39,14 @@ stages:
         featurize.weight_factor: 0.1
     outs:
     - path: series-train-feats.csv
-      md5: 571b47c7d673661bed824e83f0fcfc50
-      size: 440
+      md5: bcb11e828334eff9c4c1a47238b6b6db
+      size: 439
   train:
     cmd: python train.py series-train-feats.csv model.json
     deps:
     - path: series-train-feats.csv
-      md5: 571b47c7d673661bed824e83f0fcfc50
-      size: 440
+      md5: bcb11e828334eff9c4c1a47238b6b6db
+      size: 439
     - path: train.py
       md5: e649c3fbd244dd61cf9e192362d98ebd
       size: 1954
@@ -77,8 +77,8 @@ stages:
         validation.weight_factor: 0.1
     outs:
     - path: model.json
-      md5: c2ab27176705b9bb2a4a3bd71e427bc1
-      size: 1313
+      md5: 1e2c76a7030587acfa0432b306d1277a
+      size: 1312
   evaluate:
     cmd: python evaluate.py model.json series-test.csv
     deps:
@@ -86,12 +86,12 @@ stages:
       md5: dd0c5624c0e2356265d3258ea3153641
       size: 41743
     - path: model.json
-      md5: c2ab27176705b9bb2a4a3bd71e427bc1
-      size: 1313
+      md5: 1e2c76a7030587acfa0432b306d1277a
+      size: 1312
     - path: series-test.csv
-      md5: 405495810e743b30a51dddc736569a2f
-      size: 484
+      md5: 1c510825bde3602846605ebc5e21df00
+      size: 583
     outs:
     - path: metrics.json
-      md5: 217e469c06bcc5202e7ba91fd97c833c
+      md5: 388f6471305876fcac8c9bf35aefa362
       size: 315
