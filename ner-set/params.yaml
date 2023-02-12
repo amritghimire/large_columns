@@ -1,8 +1,8 @@
 prepare:
   features: 1296
   folds: 11
-  seed: 791433705
-  random_state: 830046035
+  seed: 673551947
+  random_state: 1024643724
 model:
   batch_size: 16
   folds: 9
