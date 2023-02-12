@@ -11,17 +11,17 @@ stages:
       size: 1283
     params:
       params.yaml:
-        prepare.features: 1400
-        prepare.folds: 9
-        prepare.random_state: 999000000
-        prepare.seed: 862159000
+        prepare.features: 1296
+        prepare.folds: 11
+        prepare.random_state: 830046035
+        prepare.seed: 791433705
     outs:
     - path: ner-test.csv
-      md5: 65134832adc172d81fa367b7cfc76582
-      size: 254
+      md5: 0f68e38cf864c8650fd5d063d2dd48e8
+      size: 329
     - path: ner-train.csv
-      md5: 043e09474fdbe6bd878c83b4f3935306
-      size: 865
+      md5: 724a030871a749aac045d10d261d3475
+      size: 790
   featurize:
     cmd: python featurize.py ner-train.csv ner-train-feats.csv
     deps:
@@ -29,8 +29,8 @@ stages:
       md5: aa02e7adb34f97fdd99267ec0712a913
       size: 1322
     - path: ner-train.csv
-      md5: 043e09474fdbe6bd878c83b4f3935306
-      size: 865
+      md5: 724a030871a749aac045d10d261d3475
+      size: 790
     params:
       params.yaml:
         featurize.dense: 121
@@ -40,13 +40,13 @@ stages:
         featurize.ngrams: 7
     outs:
     - path: ner-train-feats.csv
-      md5: 8c66306fbb18177c08320f0583637930
+      md5: 5423f4e078bb4a051dd82013563236e3
       size: 240
   train:
     cmd: python train.py ner-train-feats.csv model.json
     deps:
     - path: ner-train-feats.csv
-      md5: 8c66306fbb18177c08320f0583637930
+      md5: 5423f4e078bb4a051dd82013563236e3
       size: 240
     - path: train.py
       md5: 7b2e6ace7a8d0b2786305cdb0ef57808
@@ -75,7 +75,7 @@ stages:
         preprocessing.threads: 15
     outs:
     - path: model.json
-      md5: 200efa8f6af80303077e6d2d222e17e8
+      md5: e277917202570ac0ec1b39fc5c962164
       size: 1024
   evaluate:
     cmd: python evaluate.py model.json ner-test.csv
@@ -84,12 +84,12 @@ stages:
       md5: c21b5cf442dd66a3b911c9e05a285c19
       size: 41959
     - path: model.json
-      md5: 200efa8f6af80303077e6d2d222e17e8
+      md5: e277917202570ac0ec1b39fc5c962164
       size: 1024
     - path: ner-test.csv
-      md5: 65134832adc172d81fa367b7cfc76582
-      size: 254
+      md5: 0f68e38cf864c8650fd5d063d2dd48e8
+      size: 329
     outs:
     - path: metrics.json
-      md5: 3c39704ab2fc135b3927259d8e184f61
+      md5: dcdafbafda86c80ffd38764640f0313c
       size: 498
