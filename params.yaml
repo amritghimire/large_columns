@@ -6,6 +6,7 @@ settings:
   random_state: 509000000
   seed: 185976000
   trees: 9
+  new_column: 20
 model:
   features: 4460
   passes: 76
